@@ -1,0 +1,62 @@
+%MATLAB ship simulator by Jason Koch and Julian Pryde
+
+% Take ship characteristics (turn radius at specific rudder angles, forard and aftward acceleration)
+
+% Define drag deceleration as function of velocity
+
+% create random set and drift
+
+% Take initial course, speed, position, 
+
+% create uncertainty factor for course and speeds
+
+% display menu: take fix, end program, set new course and speeds
+
+% If take fix:
+	% display current coordinates
+	
+	% stamp log file with time/perceived course and speed/coordinates
+	
+	% stamp array log with time/actual course and speed/coordinates
+
+% If set new course and speeds
+	% Stamp both logs with coordinates and shit
+
+	% function [end turn time, end turn coords] = turnSim(rud angle, true speed, true course, coords, perceived course, percieved speed)
+	
+	% create new uncertainty factor
+	
+	% @#$%^&* swear profusely at user
+	
+	% calculate duration of change 
+	
+	% print "changing course and/or speed" for duration of change
+	
+	% replace course, speed, coords and time with new values
+	
+	% stamp dem logs
+
+% If end program
+	%...	
+	
+	% No Stopping!
+	
+	% return to top of program
+	
+	% If Ctrl+C then restart program
+	
+	% If power button pressed then restart program
+	
+	% If computer smashed with hammer then restart program on different computer
+	
+	% is no escape.
+	
+	% is no end.
+	
+	% SWO life or NO life.
+	
+	% fin.
+
+% ???
+
+% profit
