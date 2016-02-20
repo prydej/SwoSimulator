@@ -1,14 +1,23 @@
-function [time, coords, velocity] = getstamp(coords, velocity, oldtime, spcourse, pspeed);
+function stamp = getstamp(coords, velocity, oldtime, spcourse, pspeed)
 
 %This function takes the state at the last fix and calculates the current
 %state. It also updates the log file and returns the information needed to
 %update the log array.
 
-% compute current coordinates
+% compute time difference
 time = clock;
 dtime = time - oldtime;
-dtime = dtime(end);
-coords = [coords(1) + velocity(1) * dtime, coords(2) + velocity(2) * dtime];
+multipliers = [24, 60, 60, 1];
+tdiff = 0;
+for i = 1:4
+    tdiff = tdiff + dtime(i+2) * multipliers(i);
+end
+
+% compute new coords
+coords = [coords(1) + velocity(1) * tdiff, coords(2) + velocity(2) * tdiff];
+
+% create stamp
+stamp = [time, coords, velocity];
 
 % stamp log file with time/perceived course and speed/coordinates
 
