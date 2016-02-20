@@ -8,6 +8,7 @@ if position(1) > 0
     lat = 'N';
 else
     lat = 'S';
+    position(1) = abs(position(1));
 end
 
 %Format degrees
@@ -31,13 +32,14 @@ while length(sseconds) < 2
 end
 
 %Consolidate latitude
-latitude = [sdegrees, '° ' sminutes, ''' ', sseconds, '" ', lat];
+latitude = [sdegrees, 'Â° ' sminutes, ''' ', sseconds, '" ', lat];
 
 %Determine east or west
 if position(2) > 0
     long = 'W';
 else
     long = 'E';
+    position(2) = abs(position(2));
 end
 
 %Format degrees
@@ -61,7 +63,7 @@ while length(sseconds) < 2
 end
 
 %Consolidate latitude
-longitude = [sdegrees, '° ' sminutes, ''' ', sseconds, '" ', long];
+longitude = [sdegrees, 'Â° ' sminutes, ''' ', sseconds, '" ', long];
 
 %Put it all together
 coords = [latitude, ', ' longitude];
