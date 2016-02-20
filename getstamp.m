@@ -13,8 +13,12 @@ for i = 1:4
     tdiff = tdiff + dtime(i+2) * multipliers(i);
 end
 
+% compute multiplier for longitude traveled
+dlat = coords(1) / 3600;
+longdmult = cosd(dlat);
+
 % compute new coords
-coords = [coords(1) + velocity(1) * tdiff, coords(2) + velocity(2) * tdiff];
+coords = [coords(1) + velocity(1) * tdiff, coords(2) + velocity(2) * tdiff * longdmult];
 
 % create stamp
 stamp = [time, coords, velocity];
