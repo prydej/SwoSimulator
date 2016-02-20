@@ -6,7 +6,7 @@ clc
 % Take ship characteristics (turn radius at specific rudder angles, forard and aftward acceleration)
 trads = zeros(6,2);
 for i = 1:6
-    prompt = sprintf('What is the tactical diameter of the ship at %d° rudder? (Yards): ', i * 5);
+    prompt = sprintf('What is the tactical diameter of the ship at %dÂ° rudder? (Yards): ', i * 5);
     tdia = input(prompt);
     trads(i, :) = [i * 5, tdia / 2];
 end
@@ -34,7 +34,10 @@ course = pcourse + rand - 0.5;
 speed = pspeed + rand - 0.5;
 
 % Convert course and speed to a cartesian velocity vector in seconds per second.
-velocity = [speed * cosd(course), speed * sind(course)] / 180;
+velocity = [speed * cosd(course), -speed * sind(course)] / 180;
+
+% Create log array
+stamps = [clock, position, velocity];
 
 choice = 'b';
 while ~strcmp(choice, 'x')
@@ -46,56 +49,72 @@ while ~strcmp(choice, 'x')
     end
     
     % display menu: take fix, end program, set new course and speeds
+    mtime = militarytimestr(stamps(end, 1:6));
+    scoord = coordstr(stamps(end, 7:8));
     clc
-    fprintf('Steady on course %s° T; speed is %d knots.\n', spcourse, pspeed)
+    fprintf('At time %s the coordinates are %s\n\n', mtime, scoord)
+    fprintf('Steady on course %sÂ° T; speed is %d knots.\n', spcourse, pspeed)
     fprintf('f: Take fix\n')
     fprintf('c: Change course and speed\n')
     fprintf('x: Quit program\n')
     choice = input('','s');
+    choice = lower(choice);
     
     % If take fix:
-    % display current coordinates
-    % stamp log file with time/perceived course and speed/coordinates
-    % stamp array log with time/actual course and speed/coordinates
-    % these will be in a function called getstamp
-    
+    if strcmp(choice, 'f')
+        
+        % display current coordinates
+        % stamp log file with time/perceived course and speed/coordinates
+        stamp = getstamp(position, velocity, stamps(end, 1:6), spcourse, pspeed);
+        mtime = militarytimestr(stamp(1:6));
+        scoord = coordstr(stamp(7:8));
+        fprintf('At time %s the coordinates are %s', mtime, scoord)
+        
+        % stamp array log with time/actual course and speed/coordinates
+        stamps = [stamps; stamp];
+        
     % If set new course and speeds
-    % Stamp both logs with coordinates and shit
-    
-    % function [end turn time, end turn coords] = turnSim(rud angle, true speed, true course, coords, perceived course, percieved speed)
-    
-    % create new uncertainty factor
-    
-    % @#$%^&* swear profusely at user
-    
-    % calculate duration of change
-    
-    % print "changing course and/or speed" for duration of change
-    
-    % replace course, speed, coords and time with new values
-    
-    % stamp dem logs
-    
+    elseif strcmp(choice, 'c')
+        
+        % Stamp both logs with coordinates and shit
+        
+        % function [end turn time, end turn coords] = turnSim(rud angle, true speed, true course, coords, perceived course, percieved speed)
+        
+        % create new uncertainty factor
+        
+        % @#$%^&* swear profusely at user
+        
+        % calculate duration of change
+        
+        % print "changing course and/or speed" for duration of change
+        
+        % replace course, speed, coords and time with new values
+        
+        % stamp dem logs
+        
     % If end program
-    %...
-    
-    % No Stopping!
-    
-    % return to top of program
-    
-    % If Ctrl+C then restart program
-    
-    % If power button pressed then restart program
-    
-    % If computer smashed with hammer then restart program on different computer
-    
-    % is no escape.
-    
-    % is no end.
-    
-    % SWO life or NO life.
-    
-    % fin.
+    elseif strcmp(choice, 'x')
+        
+        %...
+        
+        % No Stopping!
+        
+        % return to top of program
+        
+        % If Ctrl+C then restart program
+        
+        % If power button pressed then restart program
+        
+        % If computer smashed with hammer then restart program on different computer
+        
+        % is no escape.
+        
+        % is no end.
+        
+        % SWO life or NO life.
+        
+        % fin.
+    end
 end
 
 % ???
